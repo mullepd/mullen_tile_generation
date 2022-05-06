@@ -62,12 +62,35 @@
         #menu a.active:hover {
             background: #3074a4;
         }
+
+        #title-box {
+            position: absolute;
+            background-color: #f8f8f8;
+            top: 10px;
+            left: 10px;
+            width: 200px;
+            height: 70px;
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
+            color: black;
+            font-size: 18px;
+            border-radius: 3px;
+        }
+
+        #title-box p {
+            font-size: 12px;
+            color: #404040;
+        }
     </style>
 </head>
 
 <body>
     <nav id="menu"></nav>
     <div id='map' class="mapboxgl-map"></div>
+    <div id='title-box'>
+        Map Tile Generation
+        <p>Created by Parker Mullen to experiment with tile generation.</p>
+    </div>
     <script type="text/javascript">
         mapboxgl.accessToken =
             'pk.eyJ1IjoibXVsbGVwZCIsImEiOiJjbDJhcXJ2eHcwN3lhM2tsaHY2OWJwaXM5In0.LkmFGu5dcDQA7Sf8XggggA';
@@ -90,7 +113,7 @@
             });
 
             map.addLayer({
-                'id': 'base',
+                'id': 'Base',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -108,7 +131,7 @@
             });
 
             map.addLayer({
-                'id': 'thematic',
+                'id': 'Parcels',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -126,7 +149,7 @@
             });
 
             map.addLayer({
-                'id': 'thematic-base',
+                'id': 'Parcel and Base',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -144,7 +167,7 @@
             });
 
             map.addLayer({
-                'id': 'park-accessibility',
+                'id': 'Park Accessibility',
                 'type': 'raster',
                 'layout': {
                     'visibility': 'none'
@@ -156,11 +179,11 @@
 
 
         map.on('idle', () => {
-            if (!map.getLayer('base') || !map.getLayer('thematic') || !map.getLayer('thematic-base') || !map.getLayer('park-accessibility')) {
+            if (!map.getLayer('Base') || !map.getLayer('Parcels') || !map.getLayer('Parcel and Base') || !map.getLayer('Park Accessibility')) {
                 return;
             }
 
-            const toggleableLayerIds = ['base', 'thematic', 'thematic-base', 'park-accessibility'];
+            const toggleableLayerIds = ['Base', 'Parcels', 'Parcel and Base', 'Park Accessibility'];
 
             for (const id of toggleableLayerIds) {
                 if (document.getElementById(id)) {
