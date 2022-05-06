@@ -134,15 +134,33 @@
                 'source': 'thematic-base-tiles'
             });
 
+            map.addSource('nature', {
+                'type': 'raster',
+                'tiles': [
+                    'assets/nature_accessibility_theme/{z}/{x}/{y}.png'
+                ],
+                'tileSize': 256,
+                'attribution': 'Map tiles designed by Parker'
+            });
+
+            map.addLayer({
+                'id': 'park-accessibility',
+                'type': 'raster',
+                'layout': {
+                    'visibility': 'none'
+                },
+                'source': 'nature'
+            });
+
         });
 
 
         map.on('idle', () => {
-            if (!map.getLayer('base') || !map.getLayer('thematic') || !map.getLayer('thematic-base')) {
+            if (!map.getLayer('base') || !map.getLayer('thematic') || !map.getLayer('thematic-base') || !map.getLayer('park-accessibility')) {
                 return;
             }
 
-            const toggleableLayerIds = ['base', 'thematic', 'thematic-base'];
+            const toggleableLayerIds = ['base', 'thematic', 'thematic-base', 'park-accessibility'];
 
             for (const id of toggleableLayerIds) {
                 if (document.getElementById(id)) {
